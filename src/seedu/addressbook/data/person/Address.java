@@ -2,18 +2,24 @@ package seedu.addressbook.data.person;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 
+
 /**
  * Represents a Person's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
 public class Address {
 
-    public static final String EXAMPLE = "123, some street";
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
+    public static final String EXAMPLE = "123,Clementi Avenue 3,#12-34,231534";
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses must be in the format Block,Street,Unit,Postal Code";
     public static final String ADDRESS_VALIDATION_REGEX = ".+";
 
     public final String value;
     private boolean isPrivate;
+    private final Block block =  new Block();
+    private final Street street =  new Street();
+    private final Unit unit =  new Unit();
+    private final PostalCode postalcode =  new PostalCode();
+
 
     /**
      * Validates given address.
@@ -22,6 +28,11 @@ public class Address {
      */
     public Address(String address, boolean isPrivate) throws IllegalValueException {
         String trimmedAddress = address.trim();
+        String[] splitaddress = address.split(",");
+        block.setBlock(splitaddress[0]);
+        street.setStreet(splitaddress[1]);
+        unit.setUnit(splitaddress[2]);
+        postalcode.setPostalCode(splitaddress[3]);
         this.isPrivate = isPrivate;
         if (!isValidAddress(trimmedAddress)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
@@ -56,4 +67,40 @@ public class Address {
     public boolean isPrivate() {
         return isPrivate;
     }
+}
+
+class Block{
+    private String value;
+
+    public void setBlock(String Block){
+        value = Block;
+    }
+    public String getBlock(){return value;}
+}
+
+class Street{
+    private String value;
+
+    public void setStreet(String Street){
+        value = Street;
+    }
+    public String getStreet(){return value;}
+}
+
+class Unit{
+    private String value;
+
+    public void setUnit(String Unit){
+        value = Unit;
+    }
+    public String getUnit(){return value;}
+}
+
+class PostalCode{
+    private String value;
+
+    public void setPostalCode(String Block){
+        value = Block;
+    }
+    public String getPostalCode(){return value;}
 }
