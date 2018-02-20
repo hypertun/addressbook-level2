@@ -10,6 +10,30 @@ import org.junit.Test;
 
 public class UtilsTest {
 
+    @Test
+    public void isAnyNull() throws Exception {
+        // empty list
+        assertAreNoNull();
+
+        // only one object
+        assertAreNull((Object) null);
+        assertAreNull(1, null);
+        assertAreNull(null, "abc", "ab", "a");
+        assertAreNull(null, "abc", 1, 2);
+        assertAreNull(null, "abc", 1, null);
+
+        // no null objects
+        assertAreNoNull(1, 2, 3);
+        assertAreNoNull("abc", "ab", "a");
+    }
+    
+    private void assertAreNoNull(Object... objects){
+        assertFalse(Utils.isAnyNull(objects));
+    }
+
+    private void assertAreNull(Object... objects){
+        assertTrue(Utils.isAnyNull(objects));
+    }
 
     @Test
     public void elementsAreUnique() throws Exception {
